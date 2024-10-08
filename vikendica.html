@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vikendica - Borsko jezero</title>
+    <link rel="icon" href="logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+    }
+
+    .carousel-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Omogućava prelazak u novi red na manjim ekranima */
+        margin: 20px 0; /* Dodaj malo prostora oko carousel-a */
+    }
+
+    .carousel {
+        position: relative;
+        width: 48%; /* Smanji širinu carousel-a na računarima */
+        overflow: hidden;
+        margin: 5px; /* Dodaj malo prostora između carousel-a */
+    }
+
+    .carousel img {
+        width: 100%; /* Slike će se širiti na 100% širine roditeljskog elementa */
+        height: 800px; /* Fiksna visina slika za doslednost */
+        object-fit: cover; /* Obezbeđuje da slike popune prostor bez gubitka proporcija */
+        display: none; /* Skrivanje slika po defaultu */
+    }
+
+    .carousel img.active {
+        display: block; /* Prikaži samo aktivnu sliku */
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 18px;
+        z-index: 1; /* Osiguraj da dugmad budu iznad slika */
+        width: 40px; /* Povećaj širinu dugmadi */
+        height: 40px; /* Povećaj visinu dugmadi */
+    }
+
+    .prev {
+        left: 10px; /* Određuje razmak od leve strane */
+    }
+
+    .next {
+        right: 10px; /* Određuje razmak od desne strane */
+    }
+
+    /* Mobilni stilovi */
+    @media (max-width: 768px) {
+        .carousel-container {
+            flex-direction: column; /* Na mobilnim uređajima, carousel će biti u koloni */
+        }
+
+        .carousel {
+            width: 100%; /* Osiguraj da carousel bude pun širine */
+        }
+
+        .carousel img {
+            height: 200px; /* Smanji visinu slika na mobilnim uređajima */
+        }
+
+        .prev, .next {
+            width: 30px; /* Manja širina dugmadi na mobilnim uređajima */
+            height: 30px; /* Manja visina dugmadi na mobilnim uređajima */
+        }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo1.png" width="50" height="50">
+            </div>
+            <ul>
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br><br>
+    <section class="vikendica-section">
+        <h1>Vikendica na Borskom jezeru</h1>
+        <p>Uživajte u opuštajućem odmoru u našoj prelepoj vikendici, smeštenoj pored Borskog jezera. Vikendica je savršeno mesto za beg iz grada, pružajući vam sve potrebne pogodnosti za ugodan boravak u prirodi.</p>
+
+        <div class="vikendica-content">
+            <div class="description">
+                <h2>Opis vikendice</h2>
+                <p>Prostrana terasa, idealna za doručak na otvorenom.</p>
+                <p>Smeštaj za do 4 osobe sa udobnim krevetima i potrebnim sadržajima.</p>
+                <p>Potpuno opremljena kuhinja za pripremu obroka.</p>
+                <p>Plaža je udaljena 10 minuta hodanja.</p>
+            </div>
+
+            <div class="highlights">
+                <h2>Glavne pogodnosti</h2>
+                <ul>
+                    <li>Parking</li>
+                    <li>Veliko dvorište</li>
+                    <li>Prostrana terasa</li>
+                    <li>Blizina plaže</li>
+                </ul>
+            </div>
+        </div><br>
+
+        <div class="carousel-container">
+            <!-- Prvi carousel -->
+            <div class="carousel">
+                <img src="vikendica2.jfif" alt="Slika 1" class="active">
+                <img src="vikendica1.jfif" alt="Slika 2">
+                <img src="vikendica3.jpg" alt="Slika 3">
+                <img src="vikendica4.jfif" alt="Slika 4">
+				 <img src="vikendica13.jfif" alt="Slika 5">
+                <img src="vikendica14.jfif" alt="Slika 6">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+
+            <!-- Drugi carousel -->
+            <div class="carousel">
+                <img src="8.jpg" alt="Slika 1" class="active">
+                <img src="OG9.jpg" alt="Slika 2">
+                <img src="vikendica5.jpg" alt="Slika 3">
+                <img src="vikendica6.jpg" alt="Slika 4">
+                <img src="vikendica7.jpg" alt="Slika 5">
+                <img src="OG10.jpg" alt="Slika 6">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+        </div>
+
+        <a href="kontakt_rezervacije.html" class="btn">Kontaktirajte nas za rezervacije</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Borsko Jezero</p>
+    </footer>
+
+    <script>
+        const carousels = document.querySelectorAll('.carousel'); // Izaberite sve carousel-e
+
+        carousels.forEach(carousel => {
+            const images = carousel.querySelectorAll('img');
+            const prevButton = carousel.querySelector('.prev');
+            const nextButton = carousel.querySelector('.next');
+            let currentIndex = 0;
+
+            function updateCarousel(index) {
+                images[currentIndex].classList.remove('active'); // Uklonite aktivnu sliku
+                currentIndex = (index + images.length) % images.length; // Izračunajte novi indeks
+                images[currentIndex].classList.add('active'); // Dodajte aktivnu sliku
+            }
+
+            prevButton.addEventListener('click', () => {
+                updateCarousel(currentIndex - 1);
+            });
+
+            nextButton.addEventListener('click', () => {
+                updateCarousel(currentIndex + 1);
+            });
+        });
+    </script>
+</body>
+</html>
